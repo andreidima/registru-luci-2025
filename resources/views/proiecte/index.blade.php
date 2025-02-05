@@ -125,6 +125,7 @@
                             <td>
                                 @if($proiect->fisiere->isNotEmpty())
                                     @foreach($proiect->fisiere as $fisier)
+                                        {{ $loop->iteration }}.
                                         <a href="{{ route('fisiere.view', $fisier->id) }}" target="_blank" style="text-decoration: none;">
                                             {{ $fisier->nume_fisier }}
                                         </a>
