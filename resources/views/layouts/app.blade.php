@@ -36,18 +36,8 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item me-3">
-                            <a class="nav-link rounded-3 {{ request()->routeIs('proiecte.index') ? 'shadow shadow-light' : 'text-white' }}" href="{{ route('proiecte.index') }}">
-                                <i class="fa-solid fa-folder-open me-1"></i> Proiecte
-                            </a>
-                        </li>
-                        <li class="nav-item me-3">
-                            <a class="nav-link rounded-3 {{ request()->routeIs('membri.index') ? 'shadow shadow-light' : 'text-white' }}" href="{{ route('membri.index') }}">
-                                <i class="fa-solid fa-user-group me-1"></i> Membri
-                            </a>
-                        </li>
-                        <li class="nav-item me-3">
-                            <a class="nav-link rounded-3 {{ request()->routeIs('subcontractanti.index') ? 'shadow shadow-light' : 'text-white' }}" href="{{ route('subcontractanti.index') }}">
-                                <i class="fa-solid fa-handshake me-1"></i> Subcontractanți
+                            <a class="nav-link rounded-3 {{ request()->routeIs('registru.index') ? 'shadow shadow-light' : 'text-white' }}" href="{{ route('registru.index') }}">
+                                <i class="fa-solid fa-list"></i> Registru
                             </a>
                         </li>
                     </ul>
