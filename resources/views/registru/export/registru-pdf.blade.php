@@ -279,7 +279,7 @@
     @endforeach
 
         {{-- Here's the magic. This MUST be inside body tag. Page count / total, centered at bottom of page --}}
-        <script type="text/php">
+        {{-- <script type="text/php">
             if (isset($pdf)) {
                 $text = "Pagina {PAGE_NUM} / {PAGE_COUNT}";
                 $size = 10;
@@ -289,7 +289,7 @@
                 $y = $pdf->get_height() - 25;
                 $pdf->page_text($x, $y, $text, $font, $size);
             }
-        </script>
+        </script> --}}
 </body>
 
 </html>
