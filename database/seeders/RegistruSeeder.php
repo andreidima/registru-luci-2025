@@ -13,6 +13,6 @@ class RegistruSeeder extends Seeder
      */
     public function run(): void
     {
-        Registru::factory()->count(5000)->create();
+        Registru::factory()->count(1000)->create();
     }
 }
