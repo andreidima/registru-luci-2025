@@ -95,7 +95,7 @@ class RegistruController extends Controller
     public function pdfExportRegistre(Request $request)
     {
         $registre = Registru::
-            take(3000)
+            take(2000)
             ->get();
 
         if ($request->tip === "registrul-cadastral-al-imobilelor") {
