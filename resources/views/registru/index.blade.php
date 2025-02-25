@@ -53,9 +53,17 @@
                         <div class="col-lg-12">
                             Salvare PDF - Pagini:
                             @foreach($registru_grupat_sector->groupBy('C')->chunk(100) as $groupValue => $chunks)
-                                <a href="registru/export/registrul-cadastral-al-imobilelor/{{ $registru_grupat_sector->first()->B }}/export-pdf/{{ $chunks->first()->first()->id }}/{{ $chunks->last()->last()->id }}" target="_blank">
-                                {{ $start = $loop->index * 100 + 1 }} - {{ $start + count($chunks) - 1 }}
-                                </a>
+                                @php
+                                    $groupKeys = $chunks->keys()->toArray();
+                                    $groupKeysString = implode(',', $groupKeys);
+                                @endphp
+                                <form action="{{ url('registru/export/registrul-cadastral-al-imobilelor/' . $registru_grupat_sector->first()->B . '/export-pdf') }}" method="POST" target="_blank" style="display: inline;">
+                                    @csrf
+                                    <input type="hidden" name="keys" value="{{ $groupKeysString }}">
+                                    <button type="submit" class="btn btn-sm btn-primary py-0 px-1 m-0">
+                                        {{ $start = $loop->index * 100 + 1 }} - {{ $start + count($chunks) - 1 }}
+                                    </button>
+                                </form>
                                 @if (!$loop->last)
                                     /
                                 @endif
@@ -84,9 +92,17 @@
                         <div class="col-lg-12">
                             Salvare PDF - Pagini:
                             @foreach($registru_grupat_sector->groupBy('C')->chunk(100) as $groupValue => $chunks)
-                                <a href="registru/export/fisa-de-date-a-imobilului/{{ $registru_grupat_sector->first()->B }}/export-pdf/{{ $chunks->first()->first()->id }}/{{ $chunks->last()->last()->id }}" target="_blank">
-                                {{ $start = $loop->index * 100 + 1 }} - {{ $start + count($chunks) - 1 }}
-                                </a>
+                                @php
+                                    $groupKeys = $chunks->keys()->toArray();
+                                    $groupKeysString = implode(',', $groupKeys);
+                                @endphp
+                                <form action="{{ url('registru/export/fisa-de-date-a-imobilului/' . $registru_grupat_sector->first()->B . '/export-pdf') }}" method="POST" target="_blank" style="display: inline;">
+                                    @csrf
+                                    <input type="hidden" name="keys" value="{{ $groupKeysString }}">
+                                    <button type="submit" class="btn btn-sm btn-primary py-0 px-1 m-0">
+                                        {{ $start = $loop->index * 100 + 1 }} - {{ $start + count($chunks) - 1 }}
+                                    </button>
+                                </form>
                                 @if (!$loop->last)
                                     /
                                 @endif
