@@ -43,12 +43,24 @@
                     @foreach ($registru->groupBy('B') as $registru_grupat_sector)
                         Sector {{ $registru_grupat_sector->first()->B }} - {{ $registru_grupat_sector->count() }} înregistrări -
                         <a href="registru/export/registrul-cadastral-al-imobilelor/{{ $registru_grupat_sector->first()->B }}/export-html" target="_blank">
-                            export html
+                            Vizualizare html
                         </a>
-                        -
+                        {{-- -
                         <a href="registru/export/registrul-cadastral-al-imobilelor/{{ $registru_grupat_sector->first()->B }}/export-pdf" target="_blank">
                             export pdf
-                        </a>
+                        </a> --}}
+                        <br>
+                        <div class="col-lg-12">
+                            Salvare PDF - Pagini:
+                            @foreach($registru_grupat_sector->groupBy('C')->chunk(100) as $groupValue => $chunks)
+                                <a href="registru/export/registrul-cadastral-al-imobilelor/{{ $registru_grupat_sector->first()->B }}/export-pdf/{{ $chunks->first()->first()->id }}/{{ $chunks->last()->last()->id }}" target="_blank">
+                                {{ $start = $loop->index * 100 + 1 }} - {{ $start + count($chunks) - 1 }}
+                                </a>
+                                @if (!$loop->last)
+                                    /
+                                @endif
+                            @endforeach
+                        </div>
 
                         <br><br>
                     @endforeach
@@ -62,21 +74,33 @@
                     @foreach ($registru->groupBy('B') as $registru_grupat_sector)
                         Sector {{ $registru_grupat_sector->first()->B }} - {{ $registru_grupat_sector->count() }} înregistrări -
                         <a href="registru/export/fisa-de-date-a-imobilului/{{ $registru_grupat_sector->first()->B }}/export-html" target="_blank">
-                            export html
+                            Vizualizare html
                         </a>
-                        -
+                        {{-- -
                         <a href="registru/export/fisa-de-date-a-imobilului/{{ $registru_grupat_sector->first()->B }}/export-pdf" target="_blank">
                             export pdf
-                        </a>
+                        </a> --}}
+                        <br>
+                        <div class="col-lg-12">
+                            Salvare PDF - Pagini:
+                            @foreach($registru_grupat_sector->groupBy('C')->chunk(100) as $groupValue => $chunks)
+                                <a href="registru/export/fisa-de-date-a-imobilului/{{ $registru_grupat_sector->first()->B }}/export-pdf/{{ $chunks->first()->first()->id }}/{{ $chunks->last()->last()->id }}" target="_blank">
+                                {{ $start = $loop->index * 100 + 1 }} - {{ $start + count($chunks) - 1 }}
+                                </a>
+                                @if (!$loop->last)
+                                    /
+                                @endif
+                            @endforeach
 
                         <br><br>
                     @endforeach
                 </div>
 
                 <div class="col-lg-12">
-                    * Exporturile în format html sunt utile pentru a fi vizualizate în browser.<br>
-                    ** Exporturile în format pdf sunt utile pentru a fi tipărite.<br>
-                    <span class="text-danger">*** Exporturile în format pdf necesită foarte multă procesare, așadar este posibil să dureze câteva minute, direct proporțional cu numărul de înregistrări</span>
+                    ** Dat fiind faptul ca salvările în format pdf necesită multă putere de procesare, direct proporțional cu numărul de înregistrări, acestea sunt împărțite în grupuri de 100 pagini.<br>
+                    <span class="text-danger">*** PDF-urile trebuie generate pe rând. Dacă se încearcă mai multe în același timp e foarte posibil ca serverul să respingă cererile.</span>
+                </div>
+
             </div>
 
 

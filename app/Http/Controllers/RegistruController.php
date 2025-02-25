@@ -14,7 +14,8 @@ class RegistruController extends Controller
      */
     public function index()
     {
-        $registru = Registru::all();
+        // Fetch all records
+        $registru = Registru::select('id', 'B', 'C')->orderBy('id')->get();
 
         return view('registru.index', compact('registru'));
     }
@@ -95,7 +96,14 @@ class RegistruController extends Controller
     public function pdfExportRegistre(Request $request)
     {
         $registre = Registru::
-            take(100)
+            where('B', $request->sector)
+            ->when($request->startId, function ($query) use ($request) {
+                return $query->where('id', '>=', $request->startId);
+            })
+            ->when($request->endId, function ($query) use ($request) {
+                return $query->where('id', '<=', $request->endId);
+            })
+            ->orderBy('id')
             ->get();
 
         if ($request->tip === "registrul-cadastral-al-imobilelor") {
