@@ -91,6 +91,7 @@
                                     /
                                 @endif
                             @endforeach
+                        </div>
 
                         <br><br>
                     @endforeach
