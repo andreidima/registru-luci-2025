@@ -97,11 +97,21 @@ class RegistruImport implements ToModel, WithStartRow, SkipsEmptyRows, WithValid
     {
         return [
             AfterImport::class => function(AfterImport $event) {
+                $map = [];      // ['B1' => 12, 'B2' => 5, …]
+                foreach ($this->rawRows as $row) {
+                    $b = $row[1];
+                    if (! isset($map[$b])) {
+                        $map[$b] = 0;
+                    }
+                    $map[$b]++;
+                }
+
                 \App\Models\UsageLog::find($this->logId)
                     ->update([
                         'status'        => 'success',
                         'rows_imported' => $this->imported,
                         'rows_skipped'  => $this->skipped,
+                        'counts_by_b'   => $map,
                     ]);
             },
         ];

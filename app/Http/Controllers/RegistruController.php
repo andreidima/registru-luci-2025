@@ -88,10 +88,17 @@ class RegistruController extends Controller
 
     public function destroyAll()
     {
+        $map = Registru::query()
+            ->select('B', \DB::raw('count(*) as cnt'))
+            ->groupBy('B')
+            ->pluck('cnt', 'B')
+            ->toArray();
+
         \App\Models\UsageLog::create([
             'user_id'     => auth()->id(),
             'status'      => 'deleted',
             'rows_imported' => Registru::count(),
+            'counts_by_b'    => $map,
         ]);
 
         Registru::truncate();

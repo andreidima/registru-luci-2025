@@ -9,17 +9,10 @@ class UsageLog extends Model
 {
     use HasFactory;
 
-    /**
-     * The table associated with the model.
-     * (Only needed if you ever change the name;
-     * by default it'll use 'usage_logs'.)
-     *
-     * @var string
-     */
-    // protected $table = 'usage_logs';
+    // (table name is already the plural of the class, so no need to override)
 
     /**
-     * The attributes that are mass assignable.
+     * Mass-assignable attributes.
      *
      * @var array<string>
      */
@@ -30,16 +23,18 @@ class UsageLog extends Model
         'status',
         'rows_imported',
         'rows_skipped',
+        'counts_by_b',
     ];
 
     /**
-     * The attributes that should be cast to native types.
+     * Cast JSON to array automatically.
      *
      * @var array<string,string>
      */
     protected $casts = [
         'rows_imported' => 'integer',
         'rows_skipped'  => 'integer',
+        'counts_by_b'   => 'array',
     ];
 
     /**
