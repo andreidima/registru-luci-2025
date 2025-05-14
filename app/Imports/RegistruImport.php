@@ -3,21 +3,41 @@
 namespace App\Imports;
 
 use App\Models\Registru;
+use App\Models\UsageLog;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Validators\Failure;
-use Maatwebsite\Excel\Events\AfterImport;
 use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Events\AfterImport;
 
 class RegistruImport implements ToModel, WithStartRow, SkipsEmptyRows, WithValidation, SkipsOnFailure, WithEvents
 {
+    /**
+     * ID of the UsageLog record to update
+     *
+     * @var int
+     */
     protected $logId;
+
+    /**
+     * Raw rows buffer for computing counts_by_b
+     *
+     * @var array<int, array>
+     */
+    protected $rawRows = [];
+
+    /**
+     * Counters for imported and skipped rows
+     */
     protected $imported = 0;
     protected $skipped  = 0;
 
+    /**
+     * Inject the log ID so we can update it after import
+     */
     public function __construct(int $logId)
     {
         $this->logId = $logId;
@@ -32,13 +52,16 @@ class RegistruImport implements ToModel, WithStartRow, SkipsEmptyRows, WithValid
     }
 
     /**
-     * Map each row to a Registru model, skipping those with empty column B
+     * Map each row to a Registru model, tracking raw rows and skipping those with empty column B
      *
      * @param array $row
      * @return \Illuminate\Database\Eloquent\Model|null
      */
     public function model(array $row)
     {
+        // Collect the raw row for counts_by_b
+        $this->rawRows[] = $row;
+
         // Skip rows where column B (index 1) is empty
         if (empty($row[1])) {
             $this->skipped++;
@@ -84,7 +107,7 @@ class RegistruImport implements ToModel, WithStartRow, SkipsEmptyRows, WithValid
     }
 
     /**
-     * Handle validation failures: you can log or flash these back to the session
+     * Handle validation failures: flash these back to the session
      *
      * @param Failure ...$failures
      */
@@ -93,20 +116,28 @@ class RegistruImport implements ToModel, WithStartRow, SkipsEmptyRows, WithValid
         session()->flash('import_failures', $failures);
     }
 
+    /**
+     * Register events to update the UsageLog after import finishes
+     */
     public function registerEvents(): array
     {
         return [
             AfterImport::class => function(AfterImport $event) {
-                $map = [];      // ['B1' => 12, 'B2' => 5, …]
+                // Build counts_by_b map
+                $map = [];
                 foreach ($this->rawRows as $row) {
-                    $b = $row[1];
+                    $b = $row[1] ?? '';
+                    if ($b === '') {
+                        continue;
+                    }
                     if (! isset($map[$b])) {
                         $map[$b] = 0;
                     }
                     $map[$b]++;
                 }
 
-                \App\Models\UsageLog::find($this->logId)
+                // Update the UsageLog record
+                UsageLog::find($this->logId)
                     ->update([
                         'status'        => 'success',
                         'rows_imported' => $this->imported,
