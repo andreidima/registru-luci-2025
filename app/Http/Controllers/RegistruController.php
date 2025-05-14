@@ -88,6 +88,12 @@ class RegistruController extends Controller
 
     public function destroyAll()
     {
+        \App\Models\UsageLog::create([
+            'user_id'     => auth()->id(),
+            'status'      => 'deleted',
+            'rows_imported' => Registru::count(),
+        ]);
+
         Registru::truncate();
 
         return redirect()->back()->with('success', 'Toate înregistrările din registru au fost șterse cu succes!');

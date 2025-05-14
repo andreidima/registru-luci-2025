@@ -34,6 +34,16 @@
 
             @include ('errors.errors')
 
+            {{-- If there have been any import failures --}}
+            @if(session('failures'))
+                <h4>Rânduri sărite:</h4>
+                <ul>
+                    @foreach(session('failures') as $failure)
+                    <li>Row {{ $failure->row() }}: {{ implode(', ', $failure->errors()) }}</li>
+                    @endforeach
+                </ul>
+            @endif
+
             <div class="row">
                 <div class="col-lg-6">
                     <h3>
