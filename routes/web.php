@@ -6,6 +6,7 @@ use App\Http\Controllers\RegistruController;
 use App\Http\Controllers\RegistruImportController;
 
 use Barryvdh\Snappy\Facades\SnappyPdf;
+use Illuminate\Support\Str;
 
 Auth::routes(['register' => false, 'password.request' => false, 'reset' => false]);
 
@@ -28,15 +29,28 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::get('/pdf-test', function () {
-        // render the Blade to HTML
+        // 1) Render your Blade to an HTML string
         $html = view('pdf-test')->render();
 
-        // build the PDF, allowing local file access for data-URIs
-        $pdf = SnappyPdf::loadHTML($html)
+        // 2) Write it to a temp file
+        //    we're putting it in storage/app so it's readable by PHP
+        $filename = Str::random(16).'.html';
+        $path = storage_path("app/{$filename}");
+        file_put_contents($path, $html);
+
+        // 3) Build the PDF by pointing at file:// URI
+        $pdf = SnappyPdf::loadFile('file://'.$path)
             ->setOption('enable-local-file-access', '')
+            ->setOption('load-error-handling', 'ignore')
+            ->setOption('load-media-error-handling', 'ignore')
             ->setPaper('A4', 'portrait');
 
-        // stream it inline to the browser
-        return $pdf->inline('test.pdf');
+        // 4) Stream it back
+        $response = $pdf->inline('test.pdf');
+
+        // (Optional) delete the temp file so you don't fill up storage
+        @unlink($path);
+
+        return $response;
     });
 });

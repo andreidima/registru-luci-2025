@@ -1,5 +1,4 @@
 @php
-    // load & base64-encode the font
     $fontData = base64_encode(
         file_get_contents(storage_path('app/fonts/DejaVuSans.ttf'))
     );
@@ -10,7 +9,6 @@
     <meta charset="UTF-8">
     <title>PDF Test</title>
     <style>
-        /* define the embedded font */
         @font-face {
             font-family: 'DejaVuSans';
             src: url('data:font/truetype;base64,{{ $fontData }}')
