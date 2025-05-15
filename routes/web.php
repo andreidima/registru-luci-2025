@@ -27,8 +27,9 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::get('/pdf-test', function () {
-        // $pdf = SnappyPdf::loadHTML('<h1>✅ Snappy is working!</h1>')
-        $pdf = SnappyPdf::loadHTML('Snappy is working!')
+        $pdf = SnappyPdf::loadHTML('<h1>✅ Snappy is working!</h1>')
+            // tell wkhtmltopdf it’s allowed to read local files (fonts, CSS, etc.)
+            ->setOption('enable-local-file-access', '')
             ->setPaper('A4', 'portrait');
 
         // Snappy’s wrapper has these methods:
