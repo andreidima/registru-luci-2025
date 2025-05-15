@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AcasaController;
 use App\Http\Controllers\RegistruController;
 use App\Http\Controllers\RegistruImportController;
+
 use Barryvdh\Snappy\Facades\SnappyPdf;
 
 Auth::routes(['register' => false, 'password.request' => false, 'reset' => false]);
@@ -27,9 +28,15 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::get('/pdf-test', function () {
-        $pdf = SnappyPdf::loadHTML('<h1>✅ It works!</h1>')
-            ->setPaper('A4','portrait');
+        // render the Blade to HTML
+        $html = view('pdf-test')->render();
 
+        // build the PDF, allowing local file access for data-URIs
+        $pdf = SnappyPdf::loadHTML($html)
+            ->setOption('enable-local-file-access', '')
+            ->setPaper('A4', 'portrait');
+
+        // stream it inline to the browser
         return $pdf->inline('test.pdf');
     });
 });
