@@ -11,8 +11,6 @@
     <style>
         @font-face {
             font-family: 'DejaVuSans';
-            /* src: url('data:font/truetype;base64,{{ $fontData }}')
-                 format('truetype'); */
             font-weight: normal;
             font-style: normal;
         }
