@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AcasaController;
 use App\Http\Controllers\RegistruController;
 use App\Http\Controllers\RegistruImportController;
-use SnappyPdf;
+// use SnappyPdf;
 
 Auth::routes(['register' => false, 'password.request' => false, 'reset' => false]);
 
@@ -27,8 +27,8 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::get('/pdf-test', function () {
-        $pdf = SnappyPdf::loadHTML('<h1>✅ Snappy is working!</h1>')
-            ->setPaper('A4', 'portrait');
+        // $pdf = SnappyPdf::loadHTML('<h1>✅ Snappy is working!</h1>')
+            // ->setPaper('A4', 'portrait');
 
         // Snappy’s wrapper has these methods:
         return $pdf->inline('test.pdf');
