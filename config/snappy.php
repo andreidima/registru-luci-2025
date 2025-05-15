@@ -52,12 +52,17 @@ return [
     'pdf' => [
         'enabled' => true,
         'binary'  => storage_path('bin/wkhtmltox/bin/wkhtmltopdf'),
-        'timeout' => 60,       // seconds to wait before killing the process
+        'timeout' => 60,
         'options' => [
             'margin-bottom' => '20mm',
-            // …any other wkhtmltopdf flags you like
+            // … your other options …
         ],
-        'env'     => [],
+        'env' => [
+            // point at the private lib folder so all .so files can be found
+            'LD_LIBRARY_PATH' => storage_path('bin/wkhtmltox/lib'),
+            // and point at its fonts so fontconfig finds them:
+            'FONTCONFIG_PATH' => storage_path('bin/wkhtmltox/fonts'),
+        ],
     ],
 
 ];
