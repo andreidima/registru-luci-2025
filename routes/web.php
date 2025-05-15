@@ -19,6 +19,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/registru/all', [RegistruController::class, 'destroyAll'])->name('registru.destroyAll');
     Route::resource('/registru', RegistruController::class)->parameters(['registru' => 'registru']);
 
+    //
+    Route::get('/flush', function(){
+        Artisan::call('config:clear');
+        Artisan::call('cache:clear');
+        return 'Cleared caches';
+    });
 
     Route::get('/pdf-test', function () {
         $pdf = SnappyPdf::loadHTML('<h1>✅ Snappy is working!</h1>')
