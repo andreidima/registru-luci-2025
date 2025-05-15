@@ -55,7 +55,6 @@ return [
         'timeout' => 60,
         'options' => [
             'margin-bottom' => '20mm',
-            'enable-local-file-access' => null,   // see note below
             // … your other options …
         ],
         'env' => [
