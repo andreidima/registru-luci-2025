@@ -40,7 +40,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         // 3) Build the PDF by pointing at file:// URI
         $pdf = SnappyPdf::loadFile('file://'.$path)
-            ->setOption('enable-local-file-access', '')
+            ->setOption('enable-local-file-access', true)
             ->setOption('load-error-handling', 'ignore')
             ->setOption('load-media-error-handling', 'ignore')
             ->setPaper('A4', 'portrait');
