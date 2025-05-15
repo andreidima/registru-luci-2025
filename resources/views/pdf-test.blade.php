@@ -1,7 +1,7 @@
 @php
-    $fontData = base64_encode(
-        file_get_contents(storage_path('app/fonts/DejaVuSans.ttf'))
-    );
+    // $fontData = base64_encode(
+    //     file_get_contents(storage_path('app/fonts/DejaVuSans.ttf'))
+    // );
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -11,8 +11,8 @@
     <style>
         @font-face {
             font-family: 'DejaVuSans';
-            src: url('data:font/truetype;base64,{{ $fontData }}')
-                 format('truetype');
+            /* src: url('data:font/truetype;base64,{{ $fontData }}')
+                 format('truetype'); */
             font-weight: normal;
             font-style: normal;
         }
