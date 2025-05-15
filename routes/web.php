@@ -17,4 +17,16 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/registru/export/{tip}/{sector}/{view_type}', [RegistruController::class, 'pdfExportRegistreLimitatPerGrup'])->name('registru.export');
     Route::delete('/registru/all', [RegistruController::class, 'destroyAll'])->name('registru.destroyAll');
     Route::resource('/registru', RegistruController::class)->parameters(['registru' => 'registru']);
+
+
+    Route::get('/pdf-test', function () {
+        // either via the facade…
+        $pdf = PDF::loadHTML('<h1>✅ Snappy is working!</h1><p>Generated at {{ now() }}</p>')
+                ->setPaper('a4', 'portrait');
+
+        // …or via the container alias:
+        // $pdf = app('snappy.pdf.wrapper')->loadHTML('…');
+
+        return $pdf->inline('test.pdf');
+    });
 });

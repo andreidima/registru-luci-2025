@@ -67,7 +67,7 @@
         {{ $loop->iteration }}
     </div> --}}
     @foreach ($registre->groupBy('C') as $registru)
-    <div style="width:1080px; margin-left:20px; margin-top:10px;">
+    <div style="width:1080px; margin-left:20px; margin-top:50px;">
         <div>
             <div style="float:left; width:500px;">
                 <p>{{ $registru->first()->first()->D }}, JUDETUL VRANCEA</p>

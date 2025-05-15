@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Registru;
 use Illuminate\Http\Request;
+use setasign\Fpdi\Fpdi;
 
 class RegistruController extends Controller
 {
