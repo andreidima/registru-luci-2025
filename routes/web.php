@@ -20,13 +20,12 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     Route::get('/pdf-test', function () {
-        // either via the facade…
-        $pdf = PDF::loadHTML('<h1>✅ Snappy is working!</h1><p>Generated at {{ now() }}</p>')
-                ->setPaper('a4', 'portrait');
+        /** @var \Barryvdh\Snappy\PdfWrapper $pdf */
+        $pdf = app('snappy.pdf.wrapper')
+            ->loadHTML('<h1>✅ Snappy is working!</h1><p>Generated at '.now().'</p>')
+            ->setPaper('A4', 'portrait');
 
-        // …or via the container alias:
-        // $pdf = app('snappy.pdf.wrapper')->loadHTML('…');
-
+        // Snappy’s PdfWrapper offers inline(), download() and stream():
         return $pdf->inline('test.pdf');
     });
 });
