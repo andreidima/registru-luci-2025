@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AcasaController;
 use App\Http\Controllers\RegistruController;
 use App\Http\Controllers\RegistruImportController;
+use Barryvdh\Snappy\Facades\SnappyPdf;
 
 Auth::routes(['register' => false, 'password.request' => false, 'reset' => false]);
 
@@ -20,14 +21,11 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     Route::get('/pdf-test', function () {
-        /** @var \Barryvdh\Snappy\PdfWrapper $pdf */
-        $pdf = app('snappy.pdf.wrapper')
-            ->loadHTML('<h1>✅ Snappy is working!</h1><p>Generated at '.now().'</p>')
+        $pdf = SnappyPdf::loadHTML('<h1>✅ Snappy is working!</h1>')
             ->setPaper('A4', 'portrait');
 
-        // Snappy’s PdfWrapper offers inline(), download() and stream():
-        // return $pdf->inline('test.pdf');
-        return $pdf->stream('test.pdf');
-
+        // Snappy’s wrapper has these methods:
+        return $pdf->inline('test.pdf');
+        // or ->stream('test.pdf'); or ->download('test.pdf');
     });
 });

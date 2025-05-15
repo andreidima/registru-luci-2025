@@ -123,4 +123,17 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+
+    // Andrei - added because there where two Barry pdf packages used, and both where using 'PDF' alias
+    // So this code was written to differentiate Snappy one, from default 'PDF' alias to 'SnappyPdf' alias
+    // 'providers' => [
+    //     // other service providers…
+    //     Barryvdh\Snappy\ServiceProvider::class,
+    // ],
+    // // add this if you don’t already have it
+    // 'aliases' => [
+    //     // any existing aliases…
+    //     'SnappyPDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
+    // ],
+
 ];
