@@ -16,7 +16,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // force-register the Snappy provider so its bindings are available
+        $this->app->register(SnappyServiceProvider::class);
     }
 
     /**
