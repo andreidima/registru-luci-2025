@@ -27,7 +27,8 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::get('/pdf-test', function () {
-        $pdf = SnappyPdf::loadHTML('<h1>✅ Snappy is working!</h1>')
+        // $pdf = SnappyPdf::loadHTML('<h1>✅ Snappy is working!</h1>')
+        $pdf = SnappyPdf::loadHTML('Snappy is working!')
             ->setPaper('A4', 'portrait');
 
         // Snappy’s wrapper has these methods:
