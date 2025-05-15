@@ -26,6 +26,8 @@ Route::group(['middleware' => 'auth'], function () {
             ->setPaper('A4', 'portrait');
 
         // Snappy’s PdfWrapper offers inline(), download() and stream():
-        return $pdf->inline('test.pdf');
+        // return $pdf->inline('test.pdf');
+        return $pdf->stream('test.pdf');
+
     });
 });
