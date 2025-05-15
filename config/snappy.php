@@ -54,14 +54,14 @@ return [
         'binary'  => storage_path('bin/wkhtmltox/bin/wkhtmltopdf'),
         'timeout' => 60,
         'options' => [
-            'margin-bottom' => '20mm',
-            // … your other options …
+            'enable-local-file-access'   => true,
+            'load-error-handling'        => 'ignore',
+            'load-media-error-handling'  => 'ignore',
+            'margin-bottom'              => '20mm',
         ],
         'env' => [
-            // point at the private lib folder so all .so files can be found
-            'LD_LIBRARY_PATH' => storage_path('bin/wkhtmltox/lib'),
-            // and point at its fonts so fontconfig finds them:
-            'FONTCONFIG_PATH' => storage_path('bin/wkhtmltox/fonts'),
+            'LD_LIBRARY_PATH'   => storage_path('bin/wkhtmltox/lib'),
+            'FONTCONFIG_PATH'   => storage_path('bin/wkhtmltox/fonts'),
         ],
     ],
 
