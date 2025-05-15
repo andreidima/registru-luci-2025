@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AcasaController;
 use App\Http\Controllers\RegistruController;
 use App\Http\Controllers\RegistruImportController;
-use Barryvdh\Snappy\Facades\SnappyPdf;
+use SnappyPdf;
 
 Auth::routes(['register' => false, 'password.request' => false, 'reset' => false]);
 
