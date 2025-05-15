@@ -9,6 +9,8 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 
+use Barryvdh\Snappy\ServiceProvider as SnappyServiceProvider;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
