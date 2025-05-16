@@ -51,7 +51,9 @@ return [
 
     'pdf' => [
         'enabled' => true,
-        'binary'  => storage_path('bin/wkhtmltox/bin/wkhtmltopdf'),
+        // read from ENV, or use your existing storage/bin path on Linux
+        'binary'  => env('WKHTMLTOPDF_BINARY',
+                        storage_path('bin/wkhtmltox/bin/wkhtmltopdf')),
         'timeout' => 60,
         'options' => [
             'enable-local-file-access'   => true,
