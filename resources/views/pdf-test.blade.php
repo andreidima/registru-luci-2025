@@ -1,6 +1,6 @@
 @php
     $fontData = base64_encode(
-        file_get_contents(storage_path('bin/wkthmltox/fonts/DejaVuSans.ttf'))
+        file_get_contents(storage_path('app/fonts/DejaVuSans.ttf'))
     );
 @endphp
 <!DOCTYPE html>
