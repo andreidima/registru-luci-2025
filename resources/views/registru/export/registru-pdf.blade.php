@@ -25,7 +25,7 @@
         }
 
         body {
-            font-family: DejaVu Sans, sans-serif;
+            font-family: DejaVuSans, sans-serif;
             /* font-family: Arial, Helvetica, sans-serif; */
             font-size: 11px;
             margin: 0px;
