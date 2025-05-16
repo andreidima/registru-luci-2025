@@ -1,8 +1,8 @@
-{{-- @php
+@php
     $fontData = base64_encode(
         file_get_contents(base_path('resources/fonts/DejaVuSans.ttf'))
     );
-@endphp --}}
+@endphp
 
 <!DOCTYPE  html>
 <html lang="ro">
@@ -12,10 +12,17 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Registru</title>
     <style type="text/css">
+        @font-face {
+            font-family: 'DejaVu Sans';
+            src: url('data:font/truetype;base64,{{ $fontData }}')
+                 format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
         @page {
             margin: 0px 0px;
         }
-
 
         body {
             font-family: DejaVu Sans, sans-serif;
