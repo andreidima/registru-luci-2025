@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Registru;
 use Illuminate\Http\Request;
+use Barryvdh\Snappy\Facades\SnappyPdf;
+
+
+
 use setasign\Fpdi\Fpdi;
 
 class RegistruController extends Controller
@@ -152,11 +156,25 @@ class RegistruController extends Controller
             if ($request->view_type === 'export-html') {
                 return view('registru.export.registru-pdf', compact('registre'));
             } elseif ($request->view_type === 'export-pdf') {
-                $pdf = \PDF::loadView('registru.export.registru-pdf', compact('registre'))
-                    // ->setOption('footer-right', '[page]')
-                    ->setPaper('a4', 'landscape');
-                $pdf->getDomPDF()->set_option("enable_php", true);
-                return $pdf->stream();
+                // $pdf = \PDF::loadView('registru.export.registru-pdf', compact('registre'))
+                //     ->setPaper('a4', 'landscape');
+                // $pdf->getDomPDF()->set_option("enable_php", true);
+                // return $pdf->stream();
+                $pdf = SnappyPdf::loadView(
+                    'registru.export.registru-pdf',
+                    compact('registre')
+                )
+                // landscape A4
+                ->setPaper('a4', 'landscape')
+                // allow wkhtmltopdf to read any local assets (fonts/CSS/HTML)
+                ->setOption('enable-local-file-access', true)
+                // ignore any broken URLs so it won’t abort
+                ->setOption('load-error-handling', 'ignore')
+                ->setOption('load-media-error-handling', 'ignore');
+
+                // stream inline to browser (you can also ->download('name.pdf'))
+                return $pdf->inline('registru.pdf');
+
             }
         } elseif ($request->tip === "fisa-de-date-a-imobilului") {
             if ($request->view_type === 'export-html') {
