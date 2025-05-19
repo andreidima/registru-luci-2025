@@ -66,12 +66,12 @@
             bottom: 100px;
         } */
         .footer {
-            position: fixed;
+            /* position: fixed;
             bottom: 10;
             left: 0;
-            right: 0;
+            right: 0; */
             /* height: 50px; */
-            text-align: center;
+            /* text-align: center; */
             /* optional styling */
             /* font-size: 12px; */
             /* color: #555; */
