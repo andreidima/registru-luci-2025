@@ -251,12 +251,12 @@
             <br>
             <br>
         </div>
-        <div style="float:right;width:200px;">
+        <div style="float:right;width:220px;">
             Reprezentantul Prestatorului
             <br>
             Antochi Stefan Lucian
             <br>
-            <img src="{{public_path('/images/Semnatura-Antochi-Stefan-Lucian.jpg')}}" style="width:150px">
+            <img src="{{public_path('/images/Semnatura-Antochi-Stefan-Lucian.jpg')}}" style="width:220px">
         </div>
     </div>
 
