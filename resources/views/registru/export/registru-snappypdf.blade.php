@@ -8,10 +8,9 @@
 <html lang="ro">
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Registru</title>
+    <title>Registru Cadastral</title>
     <style type="text/css">
+        /* 1) Embed the font */
         @font-face {
             font-family: 'DejaVu Sans';
             src: url('data:font/truetype;base64,{{ $fontData }}')
@@ -20,15 +19,10 @@
             font-style: normal;
         }
 
+        /* 2) Zero-margin A4 portrait */
         @page {
-            margin: 0px 0px;
-        }
-
-        body {
-            font-family: DejaVu Sans, sans-serif;
-            /* font-family: Arial, Helvetica, sans-serif; */
-            font-size: 11px;
-            margin: 0px;
+            size: A4 portrait;
+            margin: 0;
         }
 
         * {
@@ -37,11 +31,18 @@
             text-indent: 0;
         }
 
+        html, body {
+            font-family: DejaVu Sans, sans-serif;
+            font-size: 14px;
+            margin: 0;
+            padding: 0;
+        }
+
         table{
+            width: 100%;
             border-collapse:collapse;
             border-style: solid;
             border-width:1px;
-            width: 1080px;
         }
 
         th, td {
@@ -54,48 +55,30 @@
             border-style: solid;
             border-width:1px;
         }
-        #header,
-        #footer {
-        position: fixed;
-        text-align:center;
-        font-size: 0.9em;
+
+        /* 4) A simple clearfix for your header row */
+        .clearfix::after {
+            content: "";
+            display: block;
+            clear: both;
         }
-        #header {
-        top: 0;
-            border-bottom: 0.1pt solid #aaa;
-        }
-        #footer {
-        bottom: 20;
-        }
-        /* .page-number:before {
-        content: "Pagina " counter(page);
-        } */
     </style>
 </head>
 
 <body>
-    {{-- <div id="footer">
-        <div class="page-number"></div>
-    </div> --}}
-    {{-- <div class="footer" style="text-align:left; padding:0px 20px; font-size:9px">
-        {{ $loop->iteration }}
-    </div> --}}
     @foreach ($registre->groupBy('C') as $registru)
-    <div style="width:1080px; margin-left:20px; margin-top:50px;">
-        <div>
-            <div style="float:left; width:500px;">
-                <p>{{ $registru->first()->first()->D }}, JUDETUL VRANCEA</p>
+    <div class="clearfix" style="margin:50px 20px 0;">
+        <div style="overflow:hidden; gap: 10px;">
+            <div style="float:left; width:50%;">
+                <p>{{ $registru->first()->first()->D ?? '' }}, JUDETUL VRANCEA</p>
                 <p>Zona cooperativizata (Co)</p>
             </div>
-            <div style="float:left; width:580px; text-align:right;">
+            <div style="float:left; width:50%; text-align:right;">
                 <p>Anexa nr.2</p>
             </div>
         </div>
-
-        <div>
-            &nbsp;
-        </div>
-        <div>
+        <br>
+        <div style="">
             <h3 style="text-align:center; margin:0; padding:0;">
                 REGISTRUL CADASTRAL AL IMOBILELOR
             </h3>
@@ -174,9 +157,7 @@
                 <td>Nr. act/ data</td>
                 <td>Emitent</td>
             </tr>
-{{-- @php
-    dd($registru, $registru->count())
-@endphp --}}
+
         @foreach ($registru as $persoana)
             @if ($loop->first)
                 <tr>
@@ -291,19 +272,6 @@
     @endif
 
     @endforeach
-
-        {{-- Here's the magic. This MUST be inside body tag. Page count / total, centered at bottom of page --}}
-        {{-- <script type="text/php">
-            if (isset($pdf)) {
-                $text = "Pagina {PAGE_NUM} / {PAGE_COUNT}";
-                $size = 10;
-                $font = $fontMetrics->getFont("helvetica");
-                $width = $fontMetrics->get_text_width($text, $font, $size) / 2;
-                $x = ($pdf->get_width() - $width) / 2;
-                $y = $pdf->get_height() - 25;
-                $pdf->page_text($x, $y, $text, $font, $size);
-            }
-        </script> --}}
 </body>
 
 </html>

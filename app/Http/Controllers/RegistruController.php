@@ -115,26 +115,74 @@ class RegistruController extends Controller
     {
         $registre = Registru::
             where('B', $request->sector)
+            ->take(10)
             ->get();
 
         if ($request->tip === "registrul-cadastral-al-imobilelor") {
             if ($request->view_type === 'export-html') {
-                return view('registru.export.registru-pdf', compact('registre'));
+                return view('registru.export.registru-dompdf', compact('registre'));
             } elseif ($request->view_type === 'export-pdf') {
-                $pdf = \PDF::loadView('registru.export.registru-pdf', compact('registre'))
+                // $pdf = \PDF::loadView('registru.export.registru-dompdf', compact('registre'))
                     // ->setOption('footer-right', '[page]')
-                    ->setPaper('a4', 'landscape');
-                $pdf->getDomPDF()->set_option("enable_php", true);
-                return $pdf->stream();
+                    // ->setPaper('a4', 'landscape');
+                // $pdf->getDomPDF()->set_option("enable_php", true);
+                // return $pdf->stream();
+
+
+                $pdf = SnappyPdf::loadView('registru.export.registru-snappypdf', compact('registre'))
+                    // Landscape A4
+                    ->setPaper('A4', 'landscape')
+
+                    ->setOption('margin-top',    '10mm')
+                    ->setOption('margin-right',  '0mm')
+                    ->setOption('margin-bottom', '0mm')
+                    ->setOption('margin-left',   '0mm')
+
+                    // Page numbering: right-aligned
+                    ->setOption('footer-center', 'Pagina [page] / [toPage]')
+                    // Optional styling
+                    ->setOption('footer-font-size', '9')
+                    ->setOption('footer-spacing', '5')      // distance (mm) from content
+                    ->setOption('margin-bottom', '15mm')  // make room for the footer
+
+                    // Your other flags
+                    ->setOption('enable-local-file-access', true)
+                    ->setOption('load-error-handling', 'ignore')
+                    ->setOption('load-media-error-handling', 'ignore');
+
+                return $pdf->inline('registru.pdf');
             }
         } elseif ($request->tip === "fisa-de-date-a-imobilului") {
             if ($request->view_type === 'export-html') {
-                return view('registru.export.fisa-de-date-a-imobilului-pdf', compact('registre'));
+                return view('registru.export.fisa-de-date-a-imobilului-dompdf', compact('registre'));
             } elseif ($request->view_type === 'export-pdf') {
-                $pdf = \PDF::loadView('registru.export.fisa-de-date-a-imobilului-pdf', compact('registre'))
-                    ->setPaper('a4', 'portrait');
-                $pdf->getDomPDF()->set_option("enable_php", true);
-                return $pdf->stream();
+                // $pdf = \PDF::loadView('registru.export.fisa-de-date-a-imobilului-dompdf', compact('registre'))
+                //     ->setPaper('a4', 'portrait');
+                // $pdf->getDomPDF()->set_option("enable_php", true);
+                // return $pdf->stream();
+
+                $footerHtml = view()->make('registru.export.fisa-de-date-a-imobilului-snappypdf-footer')
+                            ->render();
+
+                $pdf = SnappyPdf::loadView('registru.export.fisa-de-date-a-imobilului-snappypdf', compact('registre'))
+                    // Landscape A4
+                    ->setPaper('A4', 'portrait')
+
+                    ->setOption('margin-top',    '5mm')
+                    ->setOption('margin-right',  '5mm')
+                    ->setOption('margin-bottom', '0mm')
+                    ->setOption('margin-left',   '0mm')
+
+                    ->setOption('footer-spacing', '5')      // distance (mm) from content
+                    ->setOption('margin-bottom', '30mm')  // make room for the footer
+                    ->setOption('footer-html', $footerHtml)
+
+                    // Your other flags
+                    ->setOption('enable-local-file-access', true)
+                    ->setOption('load-error-handling', 'ignore')
+                    ->setOption('load-media-error-handling', 'ignore');
+
+                return $pdf->inline('Fisa de date.pdf');
             }
         }
     }
@@ -154,22 +202,27 @@ class RegistruController extends Controller
         // Proceed with PDF generation using $registru...
         if ($request->tip === "registrul-cadastral-al-imobilelor") {
             if ($request->view_type === 'export-html') {
-                return view('registru.export.registru-pdf', compact('registre'));
+                return view('registru.export.registru-dompdf', compact('registre'));
             } elseif ($request->view_type === 'export-pdf') {
-                // $pdf = Dompdf::loadView('registru.export.registru-pdf', compact('registre'))
+                // $pdf = Dompdf::loadView('registru.export.registru-dompdf', compact('registre'))
                 //     ->setPaper('a4', 'landscape');
                 // $pdf->getDomPDF()->set_option("enable_php", true);
                 // return $pdf->stream();
-                $pdf = SnappyPdf::loadView('registru.export.registru-pdf', compact('registre'))
+                $pdf = SnappyPdf::loadView('registru.export.registru-snappypdf', compact('registre'))
                     // Landscape A4
                     ->setPaper('A4', 'landscape')
+
+                    ->setOption('margin-top',    '10mm')
+                    ->setOption('margin-right',  '0mm')
+                    ->setOption('margin-bottom', '0mm')
+                    ->setOption('margin-left',   '0mm')
 
                     // Page numbering: right-aligned
                     ->setOption('footer-center', 'Pagina [page] / [toPage]')
                     // Optional styling
                     ->setOption('footer-font-size', '9')
                     ->setOption('footer-spacing', '5')      // distance (mm) from content
-                    ->setOption('margin-bottom', '20mm')  // make room for the footer
+                    ->setOption('margin-bottom', '15mm')  // make room for the footer
 
                     // Your other flags
                     ->setOption('enable-local-file-access', true)
@@ -180,9 +233,9 @@ class RegistruController extends Controller
             }
         } elseif ($request->tip === "fisa-de-date-a-imobilului") {
             if ($request->view_type === 'export-html') {
-                return view('registru.export.fisa-de-date-a-imobilului-pdf', compact('registre'));
+                return view('registru.export.fisa-de-date-a-imobilului-dompdf', compact('registre'));
             } elseif ($request->view_type === 'export-pdf') {
-                $pdf = \PDF::loadView('registru.export.fisa-de-date-a-imobilului-pdf', compact('registre'))
+                $pdf = \PDF::loadView('registru.export.fisa-de-date-a-imobilului-dompdf', compact('registre'))
                     ->setPaper('a4', 'portrait');
                 $pdf->getDomPDF()->set_option("enable_php", true);
                 return $pdf->stream();

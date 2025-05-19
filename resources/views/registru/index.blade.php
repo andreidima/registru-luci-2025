@@ -55,11 +55,11 @@
                         <a href="registru/export/registrul-cadastral-al-imobilelor/{{ $registru_grupat_sector->first()->B }}/export-html" target="_blank">
                             Vizualizare html
                         </a>
-                        {{-- -
+                        -
                         <a href="registru/export/registrul-cadastral-al-imobilelor/{{ $registru_grupat_sector->first()->B }}/export-pdf" target="_blank">
                             export pdf
-                        </a> --}}
-                        <br>
+                        </a>
+                        {{-- <br>
                         <div class="col-lg-12">
                             Salvare PDF - Pagini:
                             @foreach($registru_grupat_sector->groupBy('C')->chunk(100) as $groupValue => $chunks)
@@ -78,7 +78,7 @@
                                     /
                                 @endif
                             @endforeach
-                        </div>
+                        </div> --}}
 
                         <br><br>
                     @endforeach
@@ -94,11 +94,11 @@
                         <a href="registru/export/fisa-de-date-a-imobilului/{{ $registru_grupat_sector->first()->B }}/export-html" target="_blank">
                             Vizualizare html
                         </a>
-                        {{-- -
+                        -
                         <a href="registru/export/fisa-de-date-a-imobilului/{{ $registru_grupat_sector->first()->B }}/export-pdf" target="_blank">
                             export pdf
-                        </a> --}}
-                        <br>
+                        </a>
+                        {{-- <br>
                         <div class="col-lg-12">
                             Salvare PDF - Pagini:
                             @foreach($registru_grupat_sector->groupBy('C')->chunk(100) as $groupValue => $chunks)
@@ -117,7 +117,7 @@
                                     /
                                 @endif
                             @endforeach
-                        </div>
+                        </div> --}}
 
                         <br><br>
                     @endforeach
