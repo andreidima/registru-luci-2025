@@ -2,7 +2,7 @@
     <p style="text-align:left; margin:0; padding:0px 20px; font-size:16px !important">
         Actul original la ID .....................................
     </p>
-    <div style="padding:0; margin:0; font-size:14px !important;">
+    <div style="padding:0; margin:0; font-size:13px !important;">
         Nota:
         <br>
         - Pentru a prelua toate datele constatate la teren, in cazul situatiilor complexe, Prestatorul poate modifica formatul fisei de date a imobilului, cu acordul ANCPI
