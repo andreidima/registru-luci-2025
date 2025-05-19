@@ -115,7 +115,7 @@ class RegistruController extends Controller
     {
         $registre = Registru::
             where('B', $request->sector)
-            // ->take(10)
+            ->take(1)
             ->get();
 
         if ($request->tip === "registrul-cadastral-al-imobilelor") {
