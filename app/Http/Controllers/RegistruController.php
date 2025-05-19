@@ -139,7 +139,8 @@ class RegistruController extends Controller
                     ->setOption('margin-left',   '0mm')
 
                     // Page numbering: right-aligned
-                    ->setOption('footer-center', 'Pagina [page] / [toPage]')
+                    // ->setOption('footer-center', 'Pagina [page] / [toPage]')
+                    ->setOption('footer-center', 'Pagina [page]')
                     // Optional styling
                     ->setOption('footer-font-size', '9')
                     ->setOption('footer-spacing', '5')      // distance (mm) from content
