@@ -1,4 +1,4 @@
-<div style="font-size:11px; padding:0 10mm; width:100%; text-align:left;">
+<div style="font-size:12.5px; padding:0 10mm; width:100%; text-align:left;">
     <p style="text-align:left; margin:0; padding:0px 20px; font-size:16px">
         Actul original la ID .....................................
     </p style="padding:0; margin:0;">
