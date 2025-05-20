@@ -246,17 +246,23 @@
         <p>&nbsp;</p>
         <p>&nbsp;</p>
 
-        <div style="float:left;width:300px; margin-left:20px;">
-            Posesor/Titular drept de proprietate
-            <br>
-            <br>
-        </div>
-        <div style="float:right;width:220px;">
-            Reprezentantul Prestatorului
-            <br>
-            Antochi Stefan Lucian
-            <br>
-            <img src="{{public_path('/images/Semnatura-Antochi-Stefan-Lucian.jpg')}}" style="width:220px">
+        <div style="
+            page-break-inside: avoid;   /* stay together */
+            overflow: hidden;           /* clearfix for the floats */
+            margin: 0 20px 0mm;         /* side & bottom margins if you like */
+        ">
+            <div style="float:left;width:300px;">
+                Posesor/Titular drept de proprietate
+                <br>
+                <br>
+            </div>
+            <div style="float:right;width:220px;">
+                Reprezentantul Prestatorului
+                <br>
+                Antochi Stefan Lucian
+                <br>
+                <img src="{{public_path('/images/Semnatura-Antochi-Stefan-Lucian.jpg')}}" style="width:220px">
+            </div>
         </div>
     </div>
 
