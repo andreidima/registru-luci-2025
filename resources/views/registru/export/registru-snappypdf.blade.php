@@ -12,7 +12,7 @@
     <style type="text/css">
         /* 1) Embed the font */
         @font-face {
-            font-family: 'DejaVu Sans';
+            font-family: 'DejaVu Sans', sans-serif;
             src: url('data:font/truetype;base64,{{ $fontData }}')
                  format('truetype');
             font-weight: normal;
