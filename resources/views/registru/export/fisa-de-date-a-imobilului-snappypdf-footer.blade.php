@@ -1,4 +1,4 @@
-<div style="margin:0 7mm; text-align:left; font-family:'DejaVu Sans'">
+<div style="margin:0 5mm; text-align:left; font-family:'DejaVu Sans'">
     <p style="text-align:left; margin:0; padding:0px 20px; font-size:16px">
         Actul original la ID .....................................
     </p>
