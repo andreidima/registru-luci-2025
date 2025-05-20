@@ -124,8 +124,8 @@
                 </div>
 
                 <div class="col-lg-12">
-                    ** Dat fiind faptul ca salvările în format pdf necesită multă putere de procesare, direct proporțional cu numărul de înregistrări, acestea sunt împărțite în grupuri de 100 pagini.<br>
-                    <span class="text-danger">*** PDF-urile trebuie generate pe rând. Dacă se încearcă mai multe în același timp e foarte posibil ca serverul să respingă cererile.</span>
+                    {{-- ** Dat fiind faptul ca salvările în format pdf necesită multă putere de procesare, direct proporțional cu numărul de înregistrări, acestea sunt împărțite în grupuri de 100 pagini.<br> --}}
+                    <span class="text-danger">* PDF-urile trebuie generate pe rând. Dacă se încearcă mai multe în același timp e foarte posibil ca serverul să respingă cererile.</span>
                 </div>
 
             </div>
